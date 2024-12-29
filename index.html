@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: rgb(144, 33, 248);
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .valid {
+            color: green;
+            font-size: 12px;
+        }
+
+        .btn{
+            background-color: violet;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            <div id="nameError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <div id="emailError" class="error"></div>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div id="passwordError" class="error"></div>
+        </div>
+
+        <button class="btn" type="submit">Submit</button>
+    </form>
+
+    <script>
+       var form = document.getElementById("registrationForm");
+var nameInput = document.getElementById("name");
+var emailInput = document.getElementById("email");
+var passwordInput = document.getElementById("password");
+
+var nameError = document.getElementById("nameError");
+var emailError = document.getElementById("emailError");
+var passwordError = document.getElementById("passwordError");
+
+// Real-time validation function
+function validateName() {
+    if (nameInput.value.trim() === "") {
+        nameError.textContent = "Name cannot be empty.";
+    } else {
+        nameError.textContent = "";
+    }
+}
+
+function validateEmail() {
+    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (emailInput.value.trim() === "") {
+        emailError.textContent = "Email cannot be empty.";
+    } else if (!emailRegex.test(emailInput.value.trim())) {
+        emailError.textContent = "Please enter a valid email.";
+    } else {
+        emailError.textContent = "";
+    }
+}
+
+function validatePassword() {
+    if (passwordInput.value.length < 6) {
+        passwordError.textContent = "Password must be at least 6 characters.";
+    } else {
+        passwordError.textContent = "";
+    }
+}
+
+
+nameInput.addEventListener("input", validateName);
+emailInput.addEventListener("input", validateEmail);
+passwordInput.addEventListener("input", validatePassword);
+
+
+form.addEventListener("submit", function (e) {
+    e.preventDefault(); 
+
+ 
+    validateName();
+    validateEmail();
+    validatePassword();
+
+  
+    if (!nameError.textContent && !emailError.textContent && !passwordError.textContent) {
+        alert("Form submitted successfully!");
+        form.reset();
+    } else {
+        alert("Please fix the errors before submitting.");
+    }
+});
+
+    </script>
+
+</body>
+</html>
